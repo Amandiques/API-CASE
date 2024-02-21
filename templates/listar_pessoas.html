@@ -1,0 +1,59 @@
+<body>
+    <h1>Listar Pessoas</h1>
+
+    {% if mensagem %}
+        <p style="color: red;">{{ mensagem }}</p>
+    {% endif %}
+
+    <table border="1">
+        <tr>
+            <th>Nome</th>
+            <th>Data de Nascimento</th>
+            <th>Endereço</th>
+            <th>CPF</th>
+            <th>Estado Civil</th>
+        </tr>
+        {% for pessoa in pessoas %}
+            <tr>
+                <td>{{ pessoa.nomeCompleto }}</td>
+                <td>{{ pessoa.dataDeNascimento }}</td>
+                <td>{{ pessoa.endereco }}</td>
+                <td>{{ pessoa.cpf }}</td>
+                <td>{{ pessoa.estadoCivil }}</td>
+                <td>
+                    {% if not pessoa.editando %}
+                        <form method="get" action="{{ url_for('editar', nome=pessoa.nomeCompleto) }}">
+                            <button type="submit">Atualizar</button>
+                        </form>
+                        <form method="post" action="{{ url_for('excluir') }}">
+                            <input type="hidden" name="nome" value="{{ pessoa.nomeCompleto }}">
+                            <button type="submit">Excluir</button>
+                        </form>
+                    {% endif %}
+                </td>
+            </tr>
+
+            {% if pessoa.editando %}
+                <tr>
+                    <td colspan="5">
+                        <form method="post" action="{{ url_for('salvar_atualizacao', nome=pessoa.nomeCompleto) }}">
+                            <input type="text" name="nome" value="{{ pessoa.nomeCompleto }}">
+                            <input type="text" name="data_nascimento" value="{{ pessoa.dataDeNascimento }}">
+                            <input type="text" name="endereco" value="{{ pessoa.endereco }}">
+                            <input type="text" name="cpf" value="{{ pessoa.cpf }}">
+                            <input type="text" name="estado_civil" value="{{ pessoa.estadoCivil }}">
+                            <button type="submit">Salvar</button>
+                        </form>
+                    </td>
+                    
+                </tr>
+            {% endif %}
+        {% endfor %}
+        
+    </table>
+
+    <br>
+
+    <a href="{{ url_for('index') }}">Voltar à página inicial</a>
+</body>
+</html>
