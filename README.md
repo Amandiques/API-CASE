@@ -23,10 +23,12 @@ Simples gerenciador de informações de funcionários, utilizando python, desenv
 
 2. Navegue até o diretório do projeto:
 
-  cd nome-do-seu-projeto
+   ```bash
+   cd API-CASE
+   
+4. Execute a aplicação:
 
-3. Execute a aplicação:
-
-  python api.py
+   ```bash
+   python api.py
   
 Após isto, a aplicação estará em execução localmente, podendo acessá-la em http://localhost:5000 no seu navegador.
