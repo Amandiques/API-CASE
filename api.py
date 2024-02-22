@@ -40,7 +40,7 @@ class GerenciarPessoas:
 
         cpfNum = ''.join(filter(str.isdigit, cpf))
 
-        # Verifica se o CPF tem exatamente 11 dígitos
+        # CPF 11 dígitos
         if len(cpfNum) == 11 and re.match(r'\d{3}\.\d{3}\.\d{3}-\d{2}', cpf):
             return True
         else:
@@ -128,13 +128,12 @@ def cadastrar():
         mensagem = gerenciador.cadastrarPessoa(nova_pessoa)
 
     if "CPF inválido" in mensagem:
-            # Se houver erro no CPF, recupere a lista de pessoas e exiba a tabela novamente
+            # Erro no CPF volta a lista de pessoas
             pessoas = gerenciador.listarPessoas()
             gerenciador.fecharConexao()
             return render_template('listar_pessoas.html', pessoas=pessoas, mensagem=mensagem)
     gerenciador.fecharConexao()
     
-    # Agora, após cadastrar, redirecione para a rota que lista as pessoas
     return redirect(url_for('listar'))
 
 @app.route('/listar_pessoas')
